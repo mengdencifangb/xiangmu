@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div style="margin-left: 300px">
+<h1>登录</h1>
+<lable>用户名：</lable>
+<input type="text" name="username">
+<br>
+<lable>密&nbsp;&nbsp;&nbsp;码：</lable>
+<input type="password" name="userpwd">
+<br/>
+<input type="button" onclick="denglu()" value="登录">
+</div>
+</body>
+<script type="text/javascript" src="/js/jquery-1.8.3.js"></script>
+<script>
+function denglu(){
+	var username=$("[name=username]").val();
+	var userpwd=$("[name=userpwd]").val();
+	location.href="/c/zyy/Loggin?useremail="+username +"&userpwd="+userpwd;
+}
+</script>
+</html>

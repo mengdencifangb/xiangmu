@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.accp.dao.zyy.IUserDao">
+
+	<select id="Loggin" resultType="com.accp.vo.zyy.UserVo">
+
+	SELECT * FROM login,`user` WHERE useremail=#{userEmail} AND userpwd=#{userPwd} and login.userId=`user`.userid
+	</select>
+<select id="queryUser" resultType="com.accp.vo.zyy.UserVo">
+	SELECT * FROM `user` WHERE userID=#{userid}
+</select>
+</mapper>

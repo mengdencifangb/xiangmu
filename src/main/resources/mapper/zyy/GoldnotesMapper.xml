@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.accp.dao.zyy.IGoldnotesDao">
+<select id="queryAllgoldnotes" resultType="Goldnotes">
+SELECT *FROM goldnotes WHERE userid=#{userid}
+</select>
+<select id="selectBankType" resultType="Banktype">
+select * from banktype
+</select>
+<insert id="insertPutforward">
+insert into Putforward(userid,bankid,bankAccount,openBankName,submitTime,auditTime,money,auditStatus,`name`)
+values(#{putforward.userid},#{putforward.bankid},#{putforward.bankaccount},#{putforward.openbankname},now(),
+null,#{putforward.money},1,#{putforward.name})
+</insert>
+<update id="updateMoney">
+UPDATE `user` SET userMoney=userMoney-#{money} where userid=#{userid}
+</update>
+</mapper>

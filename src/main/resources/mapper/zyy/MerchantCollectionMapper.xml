@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.accp.dao.zyy.IMerchantCollectionDao">
+<select id="queryAllMerchantCollection" resultType="com.accp.vo.zyy.MerchantCollectionVo">
+
+
+SELECT a.collectID,a.userid,a.merchantOrServiceByID,a.merchantOrServiceByName,a.collectionTime,
+b.merchantlevel,b.creditScore
+FROM MerchantCollection AS a,`user` AS b
+<where>
+ a.`merchantOrServiceByID`=b.userid 
+AND a.userid=#{userid}  
+<if test="merchantorservicebyname!=null">
+ AND a.merchantOrServiceByName LIKE CONCAT('%',#{merchantorservicebyname},'%')
+ </if>
+</where>
+</select>
+<select id="queryAllServiceCollection" resultType="com.accp.vo.zyy.ServiceCollectionVo">
+SELECT a.serColleID,a.serviceID,a.userID,a.collectionTime,b.serviceCoverImg,b.servicePrice,b.serviceTitle,c.creditScore,d.stName 
+FROM ServiceCollection AS a,services AS b,`user` AS c,servicetype AS d  
+<where>
+a.serviceID=b.serviceID AND b.userid=c.userid AND b.stid=d.stid AND a.userid=#{userid} 
+<if test="servicetitle!=null">
+AND b.servicetitle LIKE CONCAT('%',#{servicetitle},'%')
+</if>
+</where>
+</select>
+<select id="queryAllType" resultType="com.accp.vo.zyy.ServiceCollectionVo">
+SELECT d.stName,COUNT(*) AS num
+FROM ServiceCollection AS a,services AS b,`user` AS c,servicetype AS d  WHERE 
+a.serviceID=b.serviceID AND b.userid=c.userid AND b.stid=d.stid AND a.userid=#{userid} GROUP BY d.stName 
+</select>
+<delete id="deleteServiceCollection">
+delete from ServiceCollection where serColleID=#{sercolleid}
+</delete>
+<select id="queryAllsjType"   resultType="com.accp.vo.zyy.MerchantCollectionVo">
+SELECT COUNT(*) AS num,c.stName
+FROM MerchantCollection AS a,`user` AS b,servicetype AS c WHERE a.`merchantOrServiceByID`=b.userid AND
+ (b.firstServiceID=c.stid OR b.secondServiceID=c.stid)
+AND a.userid=#{userid} GROUP BY c.stName
+</select>
+<delete id="deleteMerchantCollection">
+DELETE FROM MerchantCollection WHERE collectid=#{collectid}
+</delete>
+
+</mapper>

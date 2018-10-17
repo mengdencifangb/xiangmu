@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.accp.dao.zyy.IIntegralDao">
+<select id="queryByIntegral" resultType="Integral">
+SELECT * FROM integral WHERE integralid=#{integralid}
+</select>
+	<insert id="insertintegralRecord">
+	INSERT INTO integralrecord(userid,irdate,irdescribe,recordInAndOut,integralid,auditstatus)
+	VALUE(#{integ.userid},NOW(),#{integ.irdescribe},#{integ.recordinandout},#{integ.integralid},#{integ.auditstatus});
+	</insert>
+	<select id="queryByqiandao" resultType="Integralrecord">
+SELECT * FROM integralrecord WHERE integralid=1 AND IRDate LIKE CONCAT('%',DATE(NOW()),'%') AND userid=#{userid};
+	</select>
+<select id="queryAllIntegral" resultType="Integralrecord">
+select * from integralrecord where userid=#{userid}
+</select>
+<update id="updateintegralRecord">
+UPDATE `user` SET userIntegral=userIntegral+#{num} WHERE userid=#{userid}
+</update>
+</mapper>
